@@ -16,8 +16,10 @@ a {
   text-decoration: none;
 }
 
-.print {
-  print-color-adjust: exact;
+#domEl {
+  background: #000000;
+  border: 1px solid #000000;
+  float: right;
 }
 
 * {
@@ -31,11 +33,5 @@ a {
   body {
     color: white;
     background: black;
-  }
-}
-
-@media print {
-  body {
-    -webkit-print-color-adjust: exact;
   }
 }

@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import * as htmlToImage from 'html-to-image';
 
 export default function Home() {
   const [main, setMain] = useState(true);
@@ -12,17 +13,29 @@ export default function Home() {
   const [anumber, setAnumber] = useState('');
   const [amount, setAmount] = useState('');
 
+  const domEl = useRef(null);
+
+  const date = new Date();
+  const time = date.getTime();
+
+  const downloadImage = async () => {
+    const dataUrl = await htmlToImage.toPng(domEl.current);
+    // download image
+    const link = document.createElement('a');
+    link.download = `save-${time}.png`;
+    link.href = dataUrl;
+    link.click();
+  };
+
   function getAmount(amm) {
     return Number(amm).toLocaleString();
   }
 
-  function handlePrint() {
-    window.print();
-    setMain(true);
+  function closePage() {
     setDone(false);
+    setMain(true);
   }
 
-  console.log(aname, anumber, amount);
   const handleSubmit = (e) => {
     e.preventDefault();
     setMain(false);
@@ -46,7 +59,8 @@ export default function Home() {
         {main && (
           <div className='pb-6'>
             <div className='flex flex-col mx-auto sticky bg-black top-0 gap-6'>
-              <span className='text-mainOrange font-bold text-4xl'>
+              <span className='flex flex-row gap-2 text-mainOrange font-bold items-center text-3xl'>
+                <Image src='/favicon.png' width={35} height={35} alt='' />
                 PrankPay
               </span>
               <div className='bg-mainOrange w-full h-0.5'></div>
@@ -69,13 +83,13 @@ export default function Home() {
               abused.
             </p>
 
-            <div className='flex flex-col mx-auto pb-6 font-bold text-2xl'>
+            <div className='flex flex-col mx-auto items-center pb-7 font-bold text-2xl'>
               Account Details
             </div>
             <form className='flex flex-col gap-6' onSubmit={handleSubmit}>
               <div className='flex flex-col gap-2'>
-                <label htmlFor='a_name' className='font-bold text-mainOrange'>
-                  ACCOUNT NAME:
+                <label htmlFor='a_name' className='font-medium text-mainOrange'>
+                  Account Name:
                 </label>
                 <input
                   type='text'
@@ -87,21 +101,25 @@ export default function Home() {
                 />
               </div>
               <div className='flex flex-col gap-2'>
-                <label htmlFor='a_number' className='font-bold text-mainOrange'>
-                  ACCOUNT NUMBER:
+                <label
+                  htmlFor='a_number'
+                  className='font-medium text-mainOrange'
+                >
+                  Account Number:
                 </label>
                 <input
-                  type='number'
+                  type='text'
                   id='a_number'
                   onChange={(e) => setAnumber(e.target.value)}
                   className='bg-gray-300 text-gray-800 outline-none focus:border rounded-lg focus:border-mainOrange p-3'
-                  maxLength={10}
+                  pattern='\d*'
+                  maxlength='10'
                   required
                 />
               </div>
               <div className='flex flex-col gap-2'>
-                <label htmlFor='amount' className='font-bold text-mainOrange'>
-                  AMOUNT:
+                <label htmlFor='amount' className='font-medium text-mainOrange'>
+                  Amount:
                 </label>
                 <input
                   type='number'
@@ -112,7 +130,7 @@ export default function Home() {
                   required
                 />
               </div>
-              <button className='bg-mainOrange p-3 font-bold text-lg'>
+              <button className='bg-mainOrange cursor-pointer p-3 font-bold text-lg rounded-md'>
                 Fake It
               </button>
             </form>
@@ -127,7 +145,11 @@ export default function Home() {
           </div>
         )}
         {done && (
-          <div className='flex flex-col mx-auto pt-10 gap-2 print'>
+          <div
+            className='flex flex-col mx-auto pt-10 gap-2'
+            id='domEl'
+            ref={domEl}
+          >
             <div className='text-center'>
               <Image src='/failed.png' width={80} alt='' height={80} />
             </div>
@@ -143,18 +165,17 @@ export default function Home() {
               </span>
               failed.
               <br />
-              Recipient&#39;s account is full.
+              Recipient&#39;s account is full and can not receive money at this
+              time.
             </span>
-            <div className='grid grid-cols-2 pt-10 gap-4 mx-auto'>
-              <div className='col-span-1'>
-                <div className='flex flex-col rounded-lg bg-mainBlack text-white text-center p-4 w-40'>
+            <div className='flex flex-col pt-10 gap-4 justify-center items-center'>
+              <div className='flex flex-row items-center gap-4'>
+                <div className='flex flex-col mx-auto rounded-lg bg-mainBlack text-white text-center p-4 w-40'>
                   <div>
                     <Image src='/1.png' width={70} alt='' height={65} />
                   </div>
                   <span className='text-xs font-light'>Save Beneficiary</span>
                 </div>
-              </div>
-              <div className='col-span-1'>
                 <div className='flex flex-col rounded-lg bg-mainBlack text-white text-center p-4 w-40'>
                   <div>
                     <Image src='/2.png' width={70} alt='' height={68} />
@@ -162,18 +183,18 @@ export default function Home() {
                   <span className='text-xs font-light'>Schedule</span>
                 </div>
               </div>
-              <Link href='#' className='col-span-1'>
-                <a
-                  onClick={handlePrint}
-                  className='flex flex-col rounded-lg bg-mainBlack text-white text-center p-4 w-40'
-                >
-                  <div>
-                    <Image src='/3.png' width={70} alt='' height={65} />
-                  </div>
-                  <span className='text-xs font-light'>Share Receipt</span>
-                </a>
-              </Link>
-              <div className='col-span-1'>
+              <div className='flex flex-row items-center gap-4'>
+                <Link href='#' className='flex flex-col mx-auto'>
+                  <a
+                    onClick={downloadImage}
+                    className='flex flex-col cursor-pointer rounded-lg bg-mainBlack text-white text-center p-4 w-40'
+                  >
+                    <div>
+                      <Image src='/3.png' width={70} alt='' height={65} />
+                    </div>
+                    <span className='text-xs font-light'>Share Receipt</span>
+                  </a>
+                </Link>
                 <div className='flex flex-col rounded-lg bg-mainBlack text-white text-center p-4 w-40'>
                   <div>
                     <Image src='/4.png' width={70} alt='' height={65} />
@@ -182,12 +203,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className='pt-6 pr-7 pl-7'>
+            <div className='flex flex-col mx-auto pt-6 pr-7 pl-7 pb-6 '>
               <button
-                onClick={handlePrint}
-                className='bg-mainOrange w-full p-3'
+                onClick={closePage}
+                className='bg-mainOrange rounded-md font-semibold w-48 p-3'
               >
-                Done
+                Close
               </button>
             </div>
           </div>
