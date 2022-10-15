@@ -39,7 +39,7 @@ export default function Home() {
           name='description'
           content='Create a Fake Failed payment with any details of your choice - You are responsible for whatever you do with this app.'
         />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon.png' />
       </Head>
 
       <div className='flex flex-col mx-auto h-screen lg:mt-10 p-6 bg-black text-white max-w-xl print'>
