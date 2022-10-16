@@ -95,7 +95,7 @@ export default function Home() {
                   type='text'
                   onChange={(e) => setAname(e.target.value)}
                   id='a_name'
-                  className='bg-gray-300 rounded-lg text-gray-800 outline-none focus:border focus:border-mainOrange p-3'
+                  className='bg-gray-300 rounded-lg text-gray-800 outline-none focus:border focus:border-mainOrange p-2.5'
                   maxLength={25}
                   required
                 />
@@ -111,7 +111,7 @@ export default function Home() {
                   type='text'
                   id='a_number'
                   onChange={(e) => setAnumber(e.target.value)}
-                  className='bg-gray-300 text-gray-800 outline-none focus:border rounded-lg focus:border-mainOrange p-3'
+                  className='bg-gray-300 text-gray-800 outline-none focus:border rounded-lg focus:border-mainOrange p-2.5'
                   pattern='\d*'
                   maxlength='10'
                   required
@@ -125,7 +125,7 @@ export default function Home() {
                   type='number'
                   id='amount'
                   onChange={(e) => setAmount(e.target.value)}
-                  className='bg-gray-300 rounded-lg text-gray-800 outline-none focus:border focus:border-mainOrange p-3'
+                  className='bg-gray-300 rounded-lg text-gray-800 outline-none focus:border focus:border-mainOrange p-2.5'
                   maxLength={10}
                   required
                 />
@@ -190,9 +190,9 @@ export default function Home() {
                     className='flex flex-col cursor-pointer rounded-lg bg-mainBlack text-white text-center p-4 w-40'
                   >
                     <div>
-                      <Image src='/3.png' width={70} alt='' height={65} />
+                      <Image src='/3.png' width={70} alt='' height={68} />
                     </div>
-                    <span className='text-xs font-light'>Share Receipt</span>
+                    <span className='text-xs font-light'>Save Receipt</span>
                   </a>
                 </Link>
                 <div className='flex flex-col rounded-lg bg-mainBlack text-white text-center p-4 w-40'>
@@ -206,7 +206,7 @@ export default function Home() {
             <div className='flex flex-col mx-auto pt-6 pr-7 pl-7 pb-6 '>
               <button
                 onClick={closePage}
-                className='bg-mainOrange rounded-md font-semibold w-48 p-3'
+                className='bg-mainOrange rounded-md font-semibold w-80 p-3'
               >
                 Close
               </button>
