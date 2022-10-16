@@ -165,8 +165,7 @@ export default function Home() {
               </span>
               failed.
               <br />
-              Recipient&#39;s account is full and can not receive money at this
-              time.
+              Recipient&#39;s account can not receive money at this time.
             </span>
             <div className='flex flex-col pt-10 gap-4 justify-center items-center'>
               <div className='flex flex-row items-center gap-4'>
