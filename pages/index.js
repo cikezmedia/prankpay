@@ -18,6 +18,9 @@ export default function Home() {
   const date = new Date();
   const time = date.getTime();
 
+  const dater = new Date().toDateString();
+  const timer = new Date().toLocaleTimeString('en-us', { timeStyle: 'medium' });
+
   const downloadImage = async () => {
     const dataUrl = await htmlToImage.toPng(domEl.current);
     // download image
@@ -55,7 +58,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.png' />
       </Head>
 
-      <div className='flex flex-col mx-auto h-screen lg:mt-10 p-6 bg-black text-white max-w-xl print'>
+      <div className='flex flex-col mx-auto p-6 bg-black text-white max-w-xl'>
         {main && (
           <div className='pb-6'>
             <div className='flex flex-col mx-auto sticky bg-black top-0 gap-6'>
@@ -66,7 +69,7 @@ export default function Home() {
               <div className='bg-mainOrange w-full h-0.5'></div>
             </div>
 
-            <p className='pt-10'>
+            <p className='pt-6'>
               Are you tired of giving excuses why you can not give shishi? Here
               is the solution. Create a fake failed transfer and save yourself
               the stress.
@@ -122,11 +125,12 @@ export default function Home() {
                   Amount:
                 </label>
                 <input
-                  type='number'
+                  type='text'
                   id='amount'
                   onChange={(e) => setAmount(e.target.value)}
                   className='bg-gray-300 rounded-lg text-gray-800 outline-none focus:border focus:border-mainOrange p-2.5'
-                  maxLength={10}
+                  pattern='\d*'
+                  maxlength='20'
                   required
                 />
               </div>
@@ -137,31 +141,42 @@ export default function Home() {
           </div>
         )}
         {loading && (
-          <div className='flex flex-col mx-auto pt-40'>
+          <div className='flex flex-col mx-auto -mt-20'>
             <Image src='/loading-new.gif' width={160} alt='' height={160} />
             <span className='text-center font-semibold text-mainOrange'>
               Loading...
             </span>
           </div>
         )}
+      </div>
+      <div
+        className='flex flex-col mx-auto p-6 bg-black text-white max-w-xl'
+        id='domEl'
+        ref={domEl}
+      >
         {done && (
-          <div
-            className='flex flex-col mx-auto pt-10 gap-2'
-            id='domEl'
-            ref={domEl}
-          >
-            <div className='text-center'>
+          <div className='flex flex-col mx-auto justify-center items-center pt-10'>
+            <div className='absolute top-3 pb-6'>
+              <div className='flex flex-row justify-between mx-auto items-end'>
+                <span>
+                  {dater} - {timer}
+                </span>
+              </div>
+            </div>
+            <div className='flex flex-col mx-auto items-center text-center pb-2'>
               <Image src='/failed.png' width={80} alt='' height={80} />
             </div>
             <span className='text-center font-semibold pt-4 text-xl'>
               Failed
             </span>
-            <span className='text-center text-zinc-400'>Transfer failed</span>
-            <span className='text-center pt-4 text-gray-300 p-6'>
+            <span className='text-center text-zinc-400'>
+              Error 93 - Violation
+            </span>
+            <span className='text-center pt-4 text-gray-300'>
               Transfer of{' '}
               <span className='text-white'>₦{getAmount(amount)}</span> to{' '}
               <span className='text-white'>
-                {anumber} (Error 93 - Violation){' '}
+                {anumber} ({aname}){' '}
               </span>
               failed.
               <br />

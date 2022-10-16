@@ -4,11 +4,10 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  print-color-adjust: exact;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 a {
@@ -18,8 +17,6 @@ a {
 
 #domEl {
   background: #000000;
-  border: 1px solid #000000;
-  float: right;
 }
 
 * {
