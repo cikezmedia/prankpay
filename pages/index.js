@@ -156,9 +156,9 @@ export default function Home() {
       >
         {done && (
           <div className='flex flex-col mx-auto justify-center items-center pt-10'>
-            <div className='absolute top-3 pb-6'>
+            <div className='absolute top-3 pb-10'>
               <div className='flex flex-row justify-between mx-auto items-end'>
-                <span>
+                <span className='text-xs'>
                   {dater} - {timer}
                 </span>
               </div>
@@ -172,7 +172,7 @@ export default function Home() {
             <span className='text-center text-zinc-400'>
               Error 93 - Violation
             </span>
-            <span className='text-center pt-4 text-gray-300'>
+            <span className='text-center pt-4 text-sm text-gray-300'>
               Transfer of{' '}
               <span className='text-white'>₦{getAmount(amount)}</span> to{' '}
               <span className='text-white'>
