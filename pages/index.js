@@ -157,15 +157,16 @@ export default function Home() {
               Failed
             </span>
             <span className='text-center text-zinc-400'>Transfer failed</span>
-            <span className='text-center pt-4 text-gray-300 p-4'>
+            <span className='text-center pt-4 text-gray-300 p-6'>
               Transfer of{' '}
               <span className='text-white'>₦{getAmount(amount)}</span> to{' '}
               <span className='text-white'>
-                {anumber} ({aname}){' '}
+                {anumber} (Error 93 - Violation){' '}
               </span>
               failed.
               <br />
-              Recipient&#39;s account can not receive money at this time.
+              There is a violation on the customer account, and the issuing bank
+              has prevented the transaction.
             </span>
             <div className='flex flex-col pt-10 gap-4 justify-center items-center'>
               <div className='flex flex-row items-center gap-4'>
